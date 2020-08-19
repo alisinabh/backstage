@@ -16,7 +16,18 @@
 
 set -e
 
-ROOT_DIR=$(git rev-parse --show-toplevel)
+# In docker build stage, We do not have a .git directory
+# But we know where we copied backstage to. (currently /app)
+if [ ! -f /.dockerenv ]
+then
+  # Not in matrix (outside docker)
+  ROOT_DIR=$(git rev-parse --show-toplevel)
+else
+  # In matrix (inside docker)
+  ROOT_DIR=/app
+  echo "docker detected using $ROOT_DIR as ROOT_DIR"
+fi
+
 TECHDOCS_PREVIEW_SOURCE=$ROOT_DIR/plugins/techdocs/dist
 TECHDOCS_PREVIEW_DEST=$ROOT_DIR/packages/techdocs-cli/dist/techdocs-preview-bundle
 
