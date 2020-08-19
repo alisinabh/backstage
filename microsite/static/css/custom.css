@@ -7,6 +7,11 @@
 
 /* your custom css */
 
+/* override font color for new dark tech docs styling */
+table {
+  color: white;
+}
+
 @media only screen and (min-device-width: 360px) and (max-device-width: 736px) {
 }
 
